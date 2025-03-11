@@ -1,8 +1,7 @@
-**Terraform workspace vs. Terraform module
-**
+**Terraform workspace vs. Terraform module**
 
-**1. Create an EC2 Instance with Terraform Workspace
-**
+**1. Create an EC2 Instance with Terraform Workspace**
+
 Terraform workspaces allow you to manage multiple environments (e.g. dev, staging, prod) within the same codebase.
 Steps to Create an EC2 Instance Using Workspaces:
 
@@ -104,6 +103,7 @@ ________________________________________
 For larger projects, combining workspaces with modules ensures scalability and better structure.
 The major differences between Terraform Workspaces and Terraform Modules lie in their purpose, functionality, and best use cases. Here's a detailed comparison:
 Aspect	Terraform Workspaces	Terraform Modules
+
 Purpose	Manages multiple environments (e.g. dev, staging, prod) within the same codebase.	Promotes code reusability by encapsulating infrastructure logic as reusable components.
 State Management	Each workspace has a separate state file in the .terraform directory.	All environments share a single state file unless managed separately.
 Code Structure	Same codebase for different environments with variations handled using conditionals or variables.	Separate, modularized codebase for better scalability and reusability.
@@ -124,6 +124,7 @@ When to Use What?
 •	You plan to apply the same logic across multiple environments or projects.
 
 ________________________________________
+
 **Pro Tip:**
 For a scalable solution, combining both can be powerful:
 •	Use modules for reusable code.
