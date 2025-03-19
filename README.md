@@ -102,7 +102,9 @@ ________________________________________
 ✅ Modules: Ideal for reusability and modularization.
 
 For larger projects, combining workspaces with modules ensures scalability and better structure.
-The major differences between Terraform Workspaces and Terraform Modules lie in their purpose, functionality, and best use cases. Here's a detailed comparison:
+The major differences between Terraform Workspaces and Terraform Modules lie in their purpose, functionality, and best use cases. 
+
+Here's a detailed comparison:
 Aspect	Terraform Workspaces	Terraform Modules
 
 Purpose	Manages multiple environments (e.g. dev, staging, prod) within the same codebase.	
@@ -128,15 +130,18 @@ Module usage involves module "ec2" { source = "./modules/ec2" } for reusable inf
 ________________________________________
 
 When to Use What?
+
 ✅ Use Workspaces if:
 •	You have a simple setup with minor differences across environments.
 •	You need quick isolation for different environments but want to maintain the same codebase.
+
 
 ✅ Use Modules if:
 •	You have a complex infrastructure with multiple reusable components.
 •	You plan to apply the same logic across multiple environments or projects.
 
 ________________________________________
+
 
 **Pro Tip:**
 For a scalable solution, combining both can be powerful:
