@@ -98,27 +98,40 @@ ________________________________________
 **Key Differences**
 
 ✅ Workspaces: Best for managing multiple environments.
+
 ✅ Modules: Ideal for reusability and modularization.
 
 For larger projects, combining workspaces with modules ensures scalability and better structure.
 The major differences between Terraform Workspaces and Terraform Modules lie in their purpose, functionality, and best use cases. Here's a detailed comparison:
 Aspect	Terraform Workspaces	Terraform Modules
 
-Purpose	Manages multiple environments (e.g. dev, staging, prod) within the same codebase.	Promotes code reusability by encapsulating infrastructure logic as reusable components.
-State Management	Each workspace has a separate state file in the .terraform directory.	All environments share a single state file unless managed separately.
-Code Structure	Same codebase for different environments with variations handled using conditionals or variables.	Separate, modularized codebase for better scalability and reusability.
-Reusability	Limited reusability; intended for environment-specific configurations only.	Highly reusable; can be shared across multiple projects and teams.
-Isolation	Each workspace maintains isolated resources (e.g. dev resources won't affect prod).	Resources are not automatically isolated; isolation must be managed manually (e.g. different backend configurations).
-Variable Handling	Typically handled using terraform.workspace to differentiate settings.	Variables are passed as inputs directly to the module.
-Complexity	Simple to set up but may become hard to manage with complex infrastructure.	Requires more planning upfront but scales better for large projects.
-Best Use Case	Ideal for small projects or simpler environments with fewer differences between them.	Recommended for larger, complex infrastructures where modularization and reusability are key.
-Example	terraform workspace new dev and terraform workspace new prod manage separate environments.	Module usage involves module "ec2" { source = "./modules/ec2" } for reusable infrastructure.
+Purpose	Manages multiple environments (e.g. dev, staging, prod) within the same codebase.	
+Promotes code reusability by encapsulating infrastructure logic as reusable components.
+State Management	Each workspace has a separate state file in the .terraform directory.	
+All environments share a single state file unless managed separately.
+Code Structure	Same codebase for different environments with variations handled using conditionals or variables.	
+Separate, modularized codebase for better scalability and reusability.
+Reusability	Limited reusability; intended for environment-specific configurations only.	
+Highly reusable; can be shared across multiple projects and teams.
+Isolation	Each workspace maintains isolated resources (e.g. dev resources won't affect prod).	
+Resources are not automatically isolated; isolation must be managed manually (e.g. different backend configurations).
+Variable Handling	Typically handled using terraform.workspace to differentiate settings.	
+Variables are passed as inputs directly to the module.
+Complexity	Simple to set up but may become hard to manage with complex infrastructure.	
+Requires more planning upfront but scales better for large projects.
+Best Use Case	Ideal for small projects or simpler environments with fewer differences between them.	
+Recommended for larger, complex infrastructures where modularization and reusability are key.
+
+Example	terraform workspace new dev and terraform workspace new prod manage separate environments.	
+
+Module usage involves module "ec2" { source = "./modules/ec2" } for reusable infrastructure.
 ________________________________________
 
 When to Use What?
 ✅ Use Workspaces if:
 •	You have a simple setup with minor differences across environments.
 •	You need quick isolation for different environments but want to maintain the same codebase.
+
 ✅ Use Modules if:
 •	You have a complex infrastructure with multiple reusable components.
 •	You plan to apply the same logic across multiple environments or projects.
@@ -135,7 +148,7 @@ For a scalable solution, combining both can be powerful:
 
 **Terraform has two types of workspaces:**
 
-1. Default Workspace
+1. Default Workspace:
 •	Created automatically when you initialize a new Terraform project.
 •	Named default by Terraform.
 •	If you don't explicitly create or select a workspace, Terraform uses the default workspace by default.
@@ -146,7 +159,7 @@ terraform init
 terraform apply   # Uses the default workspace automatically
 ________________________________________
 
-2. Named Workspaces (User-Defined Workspaces)
+2. Named Workspaces (User-Defined Workspaces):
 •	Created explicitly using the terraform workspace new <workspace_name> command.
 •	Each named workspace maintains its own state file within .terraform's workspace directory.
 •	Ideal for managing multiple environments like dev, staging, or prod.
@@ -167,6 +180,7 @@ ________________________________________
 **Key Differences:**
 
 **Feature	Default Workspace	Named Workspaces**
+
 Creation	Created automatically during terraform init.	Created manually using terraform workspace new <name>.
 State File Name	Stored as terraform.tfstate.	Stored under .terraform/environments/<workspace_name>/terraform.tfstate.
 Environment Management	Not ideal for managing multiple environments.	Designed to manage multiple environments efficiently.
@@ -174,6 +188,7 @@ Recommended Usage	Suitable for simple deployments or single-environment setups.	
 ________________________________________
 
 **Best Practices**
+
 ✅ Use default workspace for simple projects.
 ✅ Use named workspaces for isolated environments like dev, test, or prod.
 ✅ Combine workspaces with input variables for flexible and scalable infrastructure management.
@@ -183,10 +198,11 @@ ________________________________________
 In Terraform, modules are containers for multiple resources that are used together. They help organize and reuse code. There are three main types of modules:
 ________________________________________
 
-1. Root Module
+1. Root Module:
 •	The primary module in every Terraform configuration.
 •	The files in your main working directory (e.g. main.tf, variables.tf, outputs.tf) form the root module.
 •	This is where you reference other modules.
+
 ✅ Best for: Defining your project's top-level infrastructure logic.
 
 Example Root Module (main.tf)
@@ -201,13 +217,15 @@ module "ec2_instance" {
 }
 ________________________________________
 
-2. Internal Module (Local Module)
+2. Internal Module (Local Module):
 •	Stored within your Terraform project’s directory (e.g. ./modules/).
 •	Typically used to organize and structure your project.
 •	Ideal for creating reusable components like VPCs, EC2 instances, or IAM roles.
+
 ✅ Best for: Reusing common configurations within your own project.
 
 Example Directory Structure:
+
 /project
   ├── main.tf
   ├── variables.tf
@@ -226,9 +244,10 @@ module "ec2_instance" {
 }
 ________________________________________
 
-3. External Module (Remote Module)
+3. External Module (Remote Module):
 •	Hosted on public or private registries like the Terraform Registry, GitHub, or S3 buckets.
 •	Helps you reuse community-maintained or organizational infrastructure patterns.
+
 ✅ Best for: Leveraging trusted, pre-built solutions from external sources.
 
 Example from Terraform Registry:
